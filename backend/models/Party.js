@@ -14,11 +14,11 @@ const partySchema = new Schema(
             required: true
         },
         description: {
-            type: number,
+            type: String,
             required: true
         },
         budget: {
-            type: number,
+            type: Number,
             required: true
         },
         services: {
