@@ -40,6 +40,45 @@ const serviceController = {
         } catch (error) {
             console.log(error)
         }
+    },
+
+    delete: async(req, res) => {
+        try {
+            const id = req.params.id
+            const service = await ServiceModel.findById(id)
+
+            if(!service) {
+                res.status(404).json({msg: 'Service not found.'})
+                return
+            }
+
+            const deletedService = await ServiceModel.findByIdAndDelete(id)
+            res.status(200).json({deletedService, msg: 'Service successfully removed.'})
+        } catch (error) {
+            console.log(error)
+        }
+    },
+
+    update: async(req, res) => {
+        try {
+            const id = req.params.id
+            const service = {
+                name: req.body.name,
+                description: req.body.description,
+                price: req.body.price,
+                image: req.body.image
+            }
+            const updatedService = await ServiceModel.findByIdAndUpdate(id, service)
+
+            if(!updatedService) {
+                res.status(404).json({msg: 'Service not found.'})
+                return
+            }
+
+            res.status(200).json({updatedService, msg: 'Service successfully updated.'})
+        } catch (error) {
+            console.log(error)
+        }
     }
     
 }
